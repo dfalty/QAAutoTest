@@ -15,9 +15,9 @@ import org.testng.annotations.AfterTest;
 public class LoginTest {
 	public DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
 	public WebDriver driver;
-	public String sutUrl = "http://:8787/";
-	public String username = "";
-	public String password = "";
+	public String sutUrl;
+	public String username;
+	public String password;
 	public RSLogin objLogin;
 	public RSHome objHome;
 	public Utils driverUtils;
@@ -55,10 +55,13 @@ public class LoginTest {
 	}
 	
 	@BeforeTest
-	public void beforeTest() {
+	public void beforeTest() throws IOException {
 		//Get selected driver
 		driverUtils = new Utils();
 		driver = driverUtils.getPhantomJSDriver();
+		sutUrl = driverUtils.getProperty("sutUrl");
+		username = driverUtils.getProperty("username01");
+		password = driverUtils.getProperty("password01");
 	}
 	
 	@AfterMethod

@@ -1,10 +1,13 @@
 package utils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Dimension;
@@ -61,5 +64,14 @@ public class Utils {
 		screenshotPath += timeStamp + ".jpg";
 		File srcFile=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		FileUtils.copyFile(srcFile, new File(screenshotPath),true);
+	}
+	
+	public String getProperty(String property) throws IOException{
+		String propertiesHome = System.getenv("QA_AUTO_TEST_PROPERTIES_HOME");
+		InputStream input = new FileInputStream(propertiesHome);
+		Properties prop = new Properties();
+		prop.load(input);
+		String returnProperty = prop.getProperty(property);
+		return returnProperty;
 	}
 }
