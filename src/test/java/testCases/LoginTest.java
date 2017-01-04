@@ -15,7 +15,9 @@ import org.testng.annotations.AfterTest;
 public class LoginTest {
 	public DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
 	public WebDriver driver;
-	public String sutUrl;
+	public String sutUrlUbuntu;
+	public String sutUrlRHEL;
+	public String sutUrlSUSE;
 	public String username;
 	public String password;
 	public RSLogin objLogin;
@@ -23,10 +25,72 @@ public class LoginTest {
 	public Utils driverUtils;
  
 	@Test
-	public void loginTest() {
+	public void loginTestSUSE() {
 		try {
 			//Go to SUT URL
-			driver.get(sutUrl);
+			driver.get(sutUrlSUSE);
+			
+			//Create Login Page object
+			objLogin = new RSLogin(driver);
+				
+			//Verify Log In page title
+			String loginPageTitle = objLogin.getLoginTitle();
+			AssertJUnit.assertEquals("RStudio Sign In", loginPageTitle);
+			  
+			//Log in
+			objLogin.loginToRSP(username, password);
+			
+			//Create Home Page object
+			objHome = new RSHome(driver);
+			
+			//Verify username appears on main page of the IDE
+			String homePageUsername = objHome.getHomePageUserName();
+			AssertJUnit.assertEquals(username, homePageUsername);
+			
+			//Verify Title on main IDE page
+			String homePageTitle = objHome.getHomeTitle();
+			AssertJUnit.assertEquals("RStudio", homePageTitle);
+			
+		} catch (Exception e) {
+			AssertJUnit.fail();
+		}
+	}
+	@Test
+	public void loginTestRHEL() {
+		try {
+			//Go to SUT URL
+			driver.get(sutUrlRHEL);
+			
+			//Create Login Page object
+			objLogin = new RSLogin(driver);
+				
+			//Verify Log In page title
+			String loginPageTitle = objLogin.getLoginTitle();
+			AssertJUnit.assertEquals("RStudio Sign In", loginPageTitle);
+			  
+			//Log in
+			objLogin.loginToRSP(username, password);
+			
+			//Create Home Page object
+			objHome = new RSHome(driver);
+			
+			//Verify username appears on main page of the IDE
+			String homePageUsername = objHome.getHomePageUserName();
+			AssertJUnit.assertEquals(username, homePageUsername);
+			
+			//Verify Title on main IDE page
+			String homePageTitle = objHome.getHomeTitle();
+			AssertJUnit.assertEquals("RStudio", homePageTitle);
+			
+		} catch (Exception e) {
+			AssertJUnit.fail();
+		}
+	}
+	@Test
+	public void loginTestUbuntu() {
+		try {
+			//Go to SUT URL
+			driver.get(sutUrlUbuntu);
 			
 			//Create Login Page object
 			objLogin = new RSLogin(driver);
@@ -59,7 +123,9 @@ public class LoginTest {
 		//Get selected driver
 		driverUtils = new Utils();
 		driver = driverUtils.getPhantomJSDriver();
-		sutUrl = driverUtils.getProperty("sutUrl");
+		sutUrlUbuntu = driverUtils.getProperty("sutUrlUbuntu");
+		sutUrlRHEL = driverUtils.getProperty("sutUrlRHEL");
+		sutUrlSUSE = driverUtils.getProperty("sutUrlSUSE");
 		username = driverUtils.getProperty("username01");
 		password = driverUtils.getProperty("password01");
 	}
