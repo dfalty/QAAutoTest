@@ -24,32 +24,36 @@ public class LoginTest {
 	public RSHome objHome;
 	public Utils driverUtils;
  
+	public void loginTest(){
+		//Create Login Page object
+		objLogin = new RSLogin(driver);
+			
+		//Verify Log In page title
+		String loginPageTitle = objLogin.getLoginTitle();
+		AssertJUnit.assertEquals("RStudio Sign In", loginPageTitle);
+		  
+		//Log in
+		objLogin.loginToRSP(username, password);
+		
+		//Create Home Page object
+		objHome = new RSHome(driver);
+		
+		//Verify username appears on main page of the IDE
+		String homePageUsername = objHome.getHomePageUserName();
+		AssertJUnit.assertEquals(username, homePageUsername);
+		
+		//Verify Title on main IDE page
+		String homePageTitle = objHome.getHomeTitle();
+		AssertJUnit.assertEquals("RStudio", homePageTitle);
+	}
+	
 	@Test
 	public void loginTestSUSE() {
 		try {
 			//Go to SUT URL
 			driver.get(sutUrlSUSE);
-			
-			//Create Login Page object
-			objLogin = new RSLogin(driver);
-				
-			//Verify Log In page title
-			String loginPageTitle = objLogin.getLoginTitle();
-			AssertJUnit.assertEquals("RStudio Sign In", loginPageTitle);
-			  
-			//Log in
-			objLogin.loginToRSP(username, password);
-			
-			//Create Home Page object
-			objHome = new RSHome(driver);
-			
-			//Verify username appears on main page of the IDE
-			String homePageUsername = objHome.getHomePageUserName();
-			AssertJUnit.assertEquals(username, homePageUsername);
-			
-			//Verify Title on main IDE page
-			String homePageTitle = objHome.getHomeTitle();
-			AssertJUnit.assertEquals("RStudio", homePageTitle);
+			//Run Test
+			loginTest();
 			
 		} catch (Exception e) {
 			AssertJUnit.fail();
@@ -60,27 +64,8 @@ public class LoginTest {
 		try {
 			//Go to SUT URL
 			driver.get(sutUrlRHEL);
-			
-			//Create Login Page object
-			objLogin = new RSLogin(driver);
-				
-			//Verify Log In page title
-			String loginPageTitle = objLogin.getLoginTitle();
-			AssertJUnit.assertEquals("RStudio Sign In", loginPageTitle);
-			  
-			//Log in
-			objLogin.loginToRSP(username, password);
-			
-			//Create Home Page object
-			objHome = new RSHome(driver);
-			
-			//Verify username appears on main page of the IDE
-			String homePageUsername = objHome.getHomePageUserName();
-			AssertJUnit.assertEquals(username, homePageUsername);
-			
-			//Verify Title on main IDE page
-			String homePageTitle = objHome.getHomeTitle();
-			AssertJUnit.assertEquals("RStudio", homePageTitle);
+			//Run Test
+			loginTest();
 			
 		} catch (Exception e) {
 			AssertJUnit.fail();
@@ -91,27 +76,8 @@ public class LoginTest {
 		try {
 			//Go to SUT URL
 			driver.get(sutUrlUbuntu);
-			
-			//Create Login Page object
-			objLogin = new RSLogin(driver);
-				
-			//Verify Log In page title
-			String loginPageTitle = objLogin.getLoginTitle();
-			AssertJUnit.assertEquals("RStudio Sign In", loginPageTitle);
-			  
-			//Log in
-			objLogin.loginToRSP(username, password);
-			
-			//Create Home Page object
-			objHome = new RSHome(driver);
-			
-			//Verify username appears on main page of the IDE
-			String homePageUsername = objHome.getHomePageUserName();
-			AssertJUnit.assertEquals(username, homePageUsername);
-			
-			//Verify Title on main IDE page
-			String homePageTitle = objHome.getHomeTitle();
-			AssertJUnit.assertEquals("RStudio", homePageTitle);
+			//Run Test
+			loginTest();
 			
 		} catch (Exception e) {
 			AssertJUnit.fail();
