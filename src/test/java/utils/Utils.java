@@ -19,6 +19,7 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.Reporter;
 
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import net.anthavio.phanbedder.Phanbedder;
@@ -27,8 +28,8 @@ public class Utils {
 	public WebDriver driver;
 	public int windowWidth = 1024;
 	public int windowHeight = 768;
-	public int timeoutWait = 40;
-	public String screenshotPath = "./Screenshots/";
+	public int timeoutWait = 20;
+	public String screenshotPath = "target/surefire-reports/screenshots/";
 	public DesiredCapabilities capabilities;
 	
 	
@@ -61,9 +62,10 @@ public class Utils {
 	
 	public void takeScreenshot() throws IOException{
 		String timeStamp = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new java.util.Date());
-		screenshotPath += timeStamp + ".jpg";
+		screenshotPath += timeStamp + ".png";
 		File srcFile=((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
 		FileUtils.copyFile(srcFile, new File(screenshotPath),true);
+		Reporter.log("Saved <a href=../screenshots/" + screenshotPath + ">Screenshot</a>");
 	}
 	
 	public String getProperty(String property) throws IOException{
