@@ -1,10 +1,16 @@
+#odbc installer help command
+echo “~~ odbc_install help command ~~”
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -—help
+
 # bulk install to home dir (default odbcinst.ini path)
+Echo “~~ Bulk install to home dir (default odbcinst.ini path) ~~”
 wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash
 if [[ `ls -l | grep amazonredshift` ]] && [[ `ls -l | grep bigquery ` ]] && [[ `ls -l | grep cassandra ` ]] && [[ `ls -l | grep couchbase ` ]] && [[ `ls -l | grep drill ` ]] && [[ `ls -l | grep dynamodb ` ]] && [[ `ls -l | grep hbase ` ]] && [[ `ls -l | grep hive ` ]] && [[ `ls -l | grep impala ` ]] && [[ `ls -l | grep mongodb ` ]] && [[ `ls -l | grep oracle ` ]] && [[ `ls -l | grep phoenix ` ]] && [[ `ls -l | grep postgresql ` ]] && [[ `ls -l | grep presto ` ]] && [[ `ls -l | grep salesforce ` ]] && [[ `ls -l | grep spark ` ]] && [[ `ls -l | grep sqlserver ` ]]; then echo “All available drivers installed.”; fi
 odbcinstini_path =$(odbc_config —odbcinstini)
 
 
 #bulk uninstall
+echo “~~ Bulk uninstall ~~”
 wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --uninstall
 
 #bulk install to home (custom odbcinst.ini path)
@@ -67,6 +73,7 @@ wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.
 wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --uninstall --verbose --sqlserver
 
 #individual install
+echo “~~ Individual install to home dir ~~”
 wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash
 odbcinstini_path =$(odbc_config —odbcinstini)
 
@@ -137,3 +144,28 @@ if [[`odbcinstini_path | grep libsparkodbc `]]; then echo “spark driver is in 
 wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --sqlserver
 if [[ `ls -l | grep sqlserver ` ]]; then echo “sqlserver installed”; fi
 if [[`odbcinstini_path | grep libsqlserverodbc `]]; then echo “sqlserver driver is in odbcinst.ini file”; fi
+
+# individual install to custom install path
+echo “~~ Individual install to custom driver install path ~~”
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --amazonredshift
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp —bigquery
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --cassandra
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --couchbase
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --drill
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --dynamodb
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --hbase
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --hive
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --impala
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --oracle
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --mongodb
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --oracle
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --phoenix
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --postgresql
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --presto
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --salesforce
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --spark
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp --sqlserver
+
+# Bulk install to custom install path
+echo “~~ Bulk install to custom driver install path ~~”
+wget -O - https://s3-us-west-2.amazonaws.com/rstudio-odbc/7C152C12/odbc-install.sh | bash -s -- --install /tmp
